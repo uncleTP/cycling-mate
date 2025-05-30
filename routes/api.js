@@ -4,6 +4,7 @@ const app = express();
 const cors = require('cors');
 const cyclingRouteDao = require("../dao/cyclingRouteDao");
 const reportedIssueDao = require('../dao/reportedIssueDao');
+const req = require("express/lib/request");
 
 // 1. GET all cycling routes
 router.get("/routes", (req, res) => {
