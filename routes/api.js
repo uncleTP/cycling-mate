@@ -1,23 +1,19 @@
-// api/api.js
-
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-
-const cyclingRouteDao = require('../dao/cyclingRouteDao');
+const app = express();
+const cors = require('cors');
+const cyclingRouteDao = require("../dao/cyclingRouteDao");
 const reportedIssueDao = require('../dao/reportedIssueDao');
 
 // 1. GET all cycling routes
-router.get('/routes', (req, res) => {
-  const routes = cyclingRouteDao.getAllRoutes();
+router.get("/routes", (req, res) => {
+  const routes = cyclingRouteDao.getAllRoutes(); // Fetch data from DAO
 
   if (routes.length === 0) {
-    return res.status(404).json({
-      error: "noRoutesAvailable",
-      message: "No cycling routes are available at the moment."
-    });
+    return res.status(404).json({ error: "No routes found." });
   }
 
-  res.json({ routes });
+  res.json(routes); // Send routes data as JSON response
 });
 
 // 2. GET reported issues for a specific route
@@ -72,4 +68,5 @@ router.get('/routes/popularity-insights', (req, res) => {
   });
 });
 
+app.use(cors());
 module.exports = router;
